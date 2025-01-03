@@ -1,0 +1,113 @@
+[workspace]
+members = ["swiftide", "swiftide-*", "examples", "benchmarks"]
+default-members = ["swiftide", "swiftide-*"]
+resolver = "2"
+
+[workspace.package]
+version = "0.15.0"
+edition = "2021"
+license = "MIT"
+readme = "README.md"
+keywords = ["llm", "rag", "ai", "data", "openai"]
+description = "Blazing fast, streaming pipeline library for AI applications"
+categories = ["asynchronous"]
+repository = "https://github.com/bosun-ai/swiftide-rs"
+homepage = "https://swiftide.rs"
+
+[profile.dev.package]
+insta.opt-level = 3
+similar.opt-level = 3
+
+[workspace.dependencies]
+anyhow = { version = "1.0" }
+thiserror = "2.0.9"
+async-trait = { version = "0.1" }
+derive_builder = { version = "0.20" }
+futures-util = { version = "0.3" }
+tokio = { version = "1.41", features = ["rt-multi-thread"] }
+tokio-stream = { version = "0.1" }
+tracing = { version = "0.1", features = ["log"] }
+num_cpus = { version = "1.16" }
+pin-project = { version = "1.1" }
+itertools = { version = "0.13" }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = { version = "1.0" }
+strum = { version = "0.26" }
+strum_macros = { version = "0.26" }
+lazy_static = { version = "1.5.0" }
+chrono = { version = "0.4" }
+indoc = { version = "2.0" }
+regex = { version = "1.11.1" }
+uuid = { version = "1.10", features = ["v3", "v4", "serde"] }
+dyn-clone = { version = "1.0" }
+convert_case = "0.6.0"
+
+# Integrations
+spider = { version = "2.21" }
+async-openai = { version = "0.26" }
+qdrant-client = { version = "1.10", default-features = false, features = [
+  "serde",
+] }
+fluvio = { version = "0.24", default-features = false }
+lancedb = { version = "0.14", default-features = false }
+arrow-array = { version = "53.3", default-features = false }
+arrow = { version = "53.3", default-features = false }
+parquet = { version = "53.3", default-features = false, features = ["async"] }
+redb = { version = "2.3" }
+sqlx = { version = "0.8.2", features = ["postgres", "uuid"] }
+aws-config = "1.5"
+pgvector = { version = "0.4.0", features = ["sqlx"], default-features = false }
+aws-credential-types = "1.2"
+aws-sdk-bedrockruntime = "1.61"
+criterion = { version = "0.5.1", default-features = false }
+darling = "0.20"
+deadpool = "0.12"
+document-features = "0.2.10"
+fastembed = "4.1"
+flv-util = "0.5.2"
+htmd = "0.1"
+ignore = "0.4"
+proc-macro2 = "1.0"
+quote = "1.0"
+redis = "0.27"
+reqwest = { version = "0.12.9", default-features = false }
+secrecy = "0.8.0"
+syn = "2.0"
+tera = { version = "1.20", default-features = false }
+text-splitter = "0.17"
+tracing-subscriber = "0.3"
+tree-sitter = "0.23"
+tree-sitter-java = "0.23"
+tree-sitter-javascript = "0.23"
+tree-sitter-python = "0.23"
+tree-sitter-ruby = "0.23"
+tree-sitter-rust = "0.23"
+tree-sitter-typescript = "0.23"
+
+
+# Testing
+test-log = "0.2.16"
+testcontainers = { version = "0.23.0", features = ["http_wait"] }
+mockall = "0.13.1"
+temp-dir = "0.1.13"
+wiremock = "0.6.0"
+test-case = "3.3.1"
+pretty_assertions = "1.4"
+insta = { version = "1.41.1", features = ["yaml"] }
+
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+unexpected_cfgs = { level = "warn", check-cfg = [
+  'cfg(coverage,coverage_nightly)',
+] }
+
+[workspace.lints.clippy]
+cargo = { level = "warn", priority = -1 }
+pedantic = { level = "warn", priority = -1 }
+blocks_in_conditions = "allow"
+must_use_candidate = "allow"
+module_name_repetitions = "allow"
+missing_fields_in_debug = "allow"
+# Should be fixed asap
+multiple_crate_versions = "allow"
